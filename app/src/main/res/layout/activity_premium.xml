@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
+    android:background="@drawable/bgg"
     tools:context=".PremiumActivity">
 
     <LinearLayout
@@ -53,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="200dp">
+        android:layout_marginTop="150dp">
 
         <LinearLayout
             android:layout_width="match_parent"

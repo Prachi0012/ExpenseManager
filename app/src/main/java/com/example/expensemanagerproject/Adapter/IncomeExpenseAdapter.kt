@@ -37,16 +37,26 @@ class IncomeExpenseAdapter( var incomeExpenselist: ArrayList<IncomeExpenseModelC
         holder.txtincomeExpense.setText(incomeExpenselist[position].type.toString())
         holder.txtnote.setText(incomeExpenselist[position].note)
 
-        if (holder.txtincomeExpense.text.toString()=="0"){
-            holder.txtincomeExpense.setTextColor(Color.GREEN)
+        if (holder.txtincomeExpense.text.toString()=="0")
+        {
+//            holder.txtincomeExpense.setTextColor(Color.GREEN)
+            holder.txtdate.setTextColor(Color.WHITE)
+            holder.txtcategory.setTextColor(Color.GREEN)
+            holder.txtmode.setTextColor(Color.GREEN)
+            holder.txtnote.setTextColor(Color.GREEN)
+            holder.txtamount.setTextColor(Color.GREEN)
             Log.e("TAG", "onBindViewHolder: "+holder.txtincomeExpense.text.toString() )
         }
         else{
-            holder.txtincomeExpense.setTextColor(Color.RED)
+//            holder.txtincomeExpense.setTextColor(Color.RED)
+            holder.txtdate.setTextColor(Color.WHITE)
+            holder.txtcategory.setTextColor(Color.RED)
+            holder.txtmode.setTextColor(Color.RED)
+            holder.txtnote.setTextColor(Color.RED)
+            holder.txtamount.setTextColor(Color.RED)
             Log.e("TAG", "onBindViewHolder: "+holder.txtincomeExpense.text.toString() )
         }
         holder.imgedit.setOnClickListener {
-
             invoke.invoke(incomeExpenselist[position])
         }
         holder.imgdelete.setOnClickListener {

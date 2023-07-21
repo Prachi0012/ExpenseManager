@@ -32,7 +32,7 @@ class IncomeExpense_Activity : AppCompatActivity() {
     var selectcategory = ""
     var selectmode = ""
     var id_number = 0
-    var flag = 0
+    var f = 0
     lateinit var db: DataHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,15 +44,15 @@ class IncomeExpense_Activity : AppCompatActivity() {
 
 
         db = DataHelper(this, "Database.db", null, 1)
-        income()
+        initview()
 
 
     }
 
-    private fun income() {
+    private fun initview() {
 
         if (intent != null && intent.hasExtra("updateRecord")) {
-            flag = 1
+            f = 1
             val newamount: String? = intent.getStringExtra("amount")
             val newnote: String? = intent.getStringExtra("note")
             val newtitle: String? = intent.getStringExtra("title")
@@ -68,13 +68,13 @@ class IncomeExpense_Activity : AppCompatActivity() {
 
         }
         binding.layoutcatg.setOnClickListener {
+
             val dialog = Dialog(this)
             val dialogBinding: CategoryDialogBinding = CategoryDialogBinding.inflate(layoutInflater)
             dialog.setContentView(dialogBinding.root)
             dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.window?.setLayout(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
             )
 
 
@@ -92,7 +92,9 @@ class IncomeExpense_Activity : AppCompatActivity() {
             val categoryAdapter = CategoryAdapter(categorylist) { categoryname ->
                 Log.e("TAG", "income: " + categoryname)
                 selectcategory = categoryname
+                binding.txtcategory.text = categoryname
             }
+
             dialogBinding.rcvcategory.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
             dialogBinding.rcvcategory.adapter = categoryAdapter
@@ -108,10 +110,8 @@ class IncomeExpense_Activity : AppCompatActivity() {
         val name: String? = intent.getStringExtra("title")
 
         when (page) {
-            "income" ->
-                binding.btnrbincome.isChecked = true
-            "expense" ->
-                binding.btnrbexpense.isChecked = true
+            "income" -> binding.btnrbincome.isChecked = true
+            "expense" -> binding.btnrbexpense.isChecked = true
         }
         binding.txttitle.text = name
 
@@ -127,13 +127,14 @@ class IncomeExpense_Activity : AppCompatActivity() {
             mode.add("NET BANKING")
             mode.add("CHEQUE")
 
+//            mode= db.DisplayMode()
+
             val dialog = Dialog(this)
             val dialogBinding: ModeDialogBinding = ModeDialogBinding.inflate(layoutInflater)
             dialog.setContentView(dialogBinding.root)
             dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.window?.setLayout(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
             )
             dialogBinding.btnset.setOnClickListener {
                 Toast.makeText(this, "Set", Toast.LENGTH_SHORT).show()
@@ -143,14 +144,20 @@ class IncomeExpense_Activity : AppCompatActivity() {
                 Toast.makeText(this, "Cancel", Toast.LENGTH_SHORT).show()
             }
 
+//            categorylist = db.DisplayMode()
+
+
             val adapter = ModeAdapter(mode) { mode ->
                 selectmode = mode
+                binding.txtmodee.text = mode
             }
             dialogBinding.rcvmode.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
             dialogBinding.rcvmode.adapter = adapter
             dialog.show()
             dialogBinding.btnset.setOnClickListener {
+//                var cat = binding.txtcategory.text.toString()
+
                 dialog.dismiss()
             }
             dialogBinding.btncancel.setOnClickListener {
@@ -160,10 +167,10 @@ class IncomeExpense_Activity : AppCompatActivity() {
         }
 
 
-//        val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy")
-//        val date: String = simpleDateFormat.format(Date())
-//        binding.txtdate.text = date
-//        datevalue = date
+        val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy")
+        val date: String = simpleDateFormat.format(Date())
+        binding.txtdate.text = date
+        datevalue = date
 
 //        val simpletimeformat = SimpleDateFormat("HH:mm")
 //        val time: String = simpletimeformat.format(Date())
@@ -183,7 +190,10 @@ class IncomeExpense_Activity : AppCompatActivity() {
         binding.txtdate.setOnClickListener {
 
             DatePickerDialog(
-                this, datapicker, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                this,
+                datapicker,
+                myCalendar.get(Calendar.YEAR),
+                myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH)
             ).show()
         }
@@ -196,8 +206,6 @@ class IncomeExpense_Activity : AppCompatActivity() {
                 Toast.makeText(this, "please enter amount", Toast.LENGTH_SHORT).show()
             } else if (amount.length <= 1 || amount.length >= 10) {
                 Toast.makeText(this, "please enter a amount", Toast.LENGTH_SHORT).show()
-            } else if (note.isEmpty()) {
-                Toast.makeText(this, "please enter a note", Toast.LENGTH_SHORT).show()
             } else {
                 if (binding.rgincomeExpense.checkedRadioButtonId == -1) {
 
@@ -212,22 +220,18 @@ class IncomeExpense_Activity : AppCompatActivity() {
                         type = 1
                     }
                 }
-                if (flag == 1) {
+                if (f == 1) {
                     db.update(amount, note, id_number)
                 } else {
                     db.insertIncomeExpense(
-                        datevalue,
-                        amount,
-                        selectcategory,
-                        selectmode,
-                        type,
-                        note
+                        datevalue, amount, selectcategory, selectmode, type, note
                     )
                 }
             }
             val trans = Intent(this, Transactions_Activity::class.java)
-            trans.putExtra("amount",amount)
-            trans.putExtra("note",note)
+            trans.putExtra("amount", amount)
+            trans.putExtra("note", note)
+            trans.putExtra("date", date)
             startActivity(trans)
 
 

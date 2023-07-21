@@ -1,9 +1,9 @@
 package com.example.expensemanagerproject
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.expensemanagerproject.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -19,52 +19,97 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initview() {
+        binding.imgmenu.setOnClickListener {
+            binding.drawerlayout.openDrawer(binding.navView)
 
-        binding.calender.setOnClickListener {
-            val intent = Intent(this, Calender_Activity::class.java)
-            startActivity(intent)
-        }
-        binding.addCategory.setOnClickListener {
-            val intent = Intent(this, AddCategory_Activity::class.java)
-            startActivity(intent)
-        }
-        binding.home.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
-        binding.payment.setOnClickListener {
-            val intent = Intent(this, PaymentModeActivity::class.java)
-            startActivity(intent)
         }
 
-//        binding.navView.setNavigationItemSelectedListener {
-//            when (it.itemId)
-//            {
-//                R.id.calender -> {
-//                    val intent = Intent(this, Calender_Activity::class.java)
-//                    startActivity(intent)
-//                }
-//
-//                R.id.home -> {
-//                    val intent = Intent(this, MainActivity::class.java)
-//                    startActivity(intent)
-//                }
-//
-//                R.id.add_category -> {
-//                    val intent = Intent(this, AddCategory_Activity::class.java)
-//                    startActivity(intent)
-//                }
-//
-//                R.id.payment -> {
-//                    val intent = Intent(this, PaymentModeActivity::class.java)
-//                    startActivity(intent)
-//                }
-//
-//            }
-//            true
-//
-//
+        binding.navView.setOnClickListener {
+
+            binding.drawerlayout.openDrawer(binding.navView)
+        }
+
+
+        binding.navView.setNavigationItemSelectedListener {
+            when (it.itemId)
+            {
+                R.id.calender -> {
+                    val i = Intent(this, Calender_Activity::class.java)
+                    startActivity(i)
+                }
+
+                R.id.Home -> {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                }
+
+                R.id.Category -> {
+                    val intent = Intent(this, AddCategory_Activity::class.java)
+                    startActivity(intent)
+                }
+
+                R.id.payment -> {
+                    val intent = Intent(this, PaymentModeActivity::class.java)
+                    startActivity(intent)
+                }
+                R.id.Share -> {
+                    val shareIntent = Intent(Intent.ACTION_SEND)
+                    shareIntent.type = "text"
+                    val app_url = " https://play.google.com/store/apps/details?id=com.mlab.expense.manager&hl=en-IN"
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, app_url)
+                    startActivity(Intent.createChooser(shareIntent, "Share"))
+
+//                    val sendIntent = Intent()
+//                    sendIntent.action = Intent.ACTION_SEND
+//                    sendIntent.type = "text/plain"
+//                    startActivity(sendIntent)
+                }
+
+
+                R.id.rate -> {
+                    val intent = Intent(this, RateingActivity::class.java)
+                    startActivity(intent)
+                }
+                R.id.Lock -> {
+                    val intent = Intent(this, LockScreenActivity::class.java)
+                    startActivity(intent)
+                }
+
+                R.id.termsofservice -> {
+                    val openURL = Intent(Intent.ACTION_VIEW)
+                    openURL.data = Uri.parse("https://www.termsfeed.com/blog/sample-terms-and-conditions-template/")
+                    startActivity(openURL)
+                }
+
+                R.id.privacy -> {
+                    val openURL = Intent(Intent.ACTION_VIEW)
+                    openURL.data = Uri.parse("https://play.google.com/store/apps/details?id=com.mlab.expense.manager&hl")
+                    startActivity(openURL)
+                }
+
+            }
+            true
+//        binding.calender.setOnClickListener {
+//            val intent = Intent(this, Calender_Activity::class.java)
+//            startActivity(intent)
 //        }
+//        binding.addCategory.setOnClickListener {
+//            val intent = Intent(this, AddCategory_Activity::class.java)
+//            startActivity(intent)
+//        }
+//        binding.home.setOnClickListener {
+//            val intent = Intent(this, MainActivity::class.java)
+//            startActivity(intent)
+//        }
+//        binding.payment.setOnClickListener {
+//            val intent = Intent(this, PaymentModeActivity::class.java)
+//            startActivity(intent)
+//        }
+
+        }
+        binding.drawerlayout.setOnClickListener {
+            binding.drawerlayout.closeDrawer(binding.navView)
+        }
 
         var title_income = "Add Income"
         binding.layoutincome.setOnClickListener {
@@ -92,10 +137,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, Calender_Activity::class.java)
             startActivity(intent)
         }
-        binding.imgmenu.setOnClickListener {
-            binding.drawerlayout.openDrawer(binding.navView)
 
-        }
         binding.imgcrown.setOnClickListener {
 //            val i = Intent(this, PremiumActivity::class.java)
 //            startActivity(i)
@@ -104,7 +146,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(i)
 //            Toast.makeText(this, "Premium Activty", Toast.LENGTH_SHORT).show()
         }
-        binding.addCategory.setOnClickListener {
+        binding.layoutcategory.setOnClickListener {
             val intent = Intent(this, AddCategory_Activity::class.java)
             startActivity(intent)
         }

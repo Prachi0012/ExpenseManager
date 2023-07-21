@@ -5,8 +5,19 @@
     android:background="#D8E3E8"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Calender_Activity">
 
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_30sdp"
+        android:textSize="@dimen/_15ssp"
+        android:text="Current Date"
+        android:id="@+id/TxtDate"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:gravity="center"/>
     <CalendarView
         android:background="@color/white"
         android:id="@+id/calenderview"

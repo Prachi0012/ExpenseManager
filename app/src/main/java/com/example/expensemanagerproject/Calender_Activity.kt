@@ -22,11 +22,16 @@ class Calender_Activity : AppCompatActivity() {
 
     private fun calender() {
 
-        binding.calenderview.date
-        binding.calenderview.firstDayOfWeek
-        binding.calenderview.maxDate
-        binding.calenderview.minDate
-        binding.calenderview.showWeekNumber
+//        binding.calenderview.date
+//        binding.calenderview.firstDayOfWeek
+//        binding.calenderview.maxDate
+//        binding.calenderview.minDate
+//        binding.calenderview.showWeekNumber
+        binding.calenderview.setOnDateChangeListener(CalendarView.OnDateChangeListener { calendarView, year, Month, dayOfMonth ->
+
+            val Date = (dayOfMonth.toString() + "-" + (Month + 1) + "-" + year)
+            binding.TxtDate.setText(Date)
+        })
 
     }
 }

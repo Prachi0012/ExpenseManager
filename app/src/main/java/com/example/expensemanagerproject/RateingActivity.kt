@@ -15,7 +15,8 @@ class RateingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_rateing)
+        binding = ActivityRateingBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         initview()
     }
 
@@ -38,6 +39,7 @@ class RateingActivity : AppCompatActivity() {
         }
         binding.btnNo.setOnClickListener {
             Toast.makeText(this, "Cancel Rateing", Toast.LENGTH_SHORT).show()
+            finish()
         }
 
     }

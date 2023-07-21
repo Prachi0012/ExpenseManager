@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.expensemanagerproject.Helper.DataHelper
+import com.example.expensemanagerproject.ModelClass.CategoryModelClass
 import com.example.expensemanagerproject.databinding.ActivityPaymentModeBinding
 
 class PaymentModeActivity : AppCompatActivity() {
     lateinit var binding: ActivityPaymentModeBinding
+    lateinit var db: DataHelper
+    var datalst = ArrayList<CategoryModelClass>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +29,9 @@ class PaymentModeActivity : AppCompatActivity() {
         }
         binding.btnApply.setOnClickListener {
             val name = binding.edtPaymentMode.text.toString()
+            db.insertCategory(name)
+            datalst = db.displaycategory()
+
 
             if (name.isEmpty())
             {
@@ -46,5 +52,6 @@ class PaymentModeActivity : AppCompatActivity() {
 
             onBackPressed()
         }
+
     }
 }

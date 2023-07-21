@@ -2,6 +2,7 @@ package com.example.expensemanagerproject
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.expensemanagerproject.Helper.DataHelper
 import com.example.expensemanagerproject.ModelClass.CategoryModelClass
 import com.example.expensemanagerproject.databinding.ActivityAddCategoryBinding
@@ -27,6 +28,7 @@ class AddCategory_Activity : AppCompatActivity() {
             val name = binding.edtcategory.text.toString()
             db.insertCategory(name)
             datalist = db.displaycategory()
+            Toast.makeText(this, "Category Added Sucessfully", Toast.LENGTH_SHORT).show()
 //            adapter.update(datalist)
         }
         binding.imgback.setOnClickListener {

@@ -42,7 +42,7 @@
                         android:textSize="@dimen/_15ssp"
                         android:textStyle="bold"
                         android:textColor="#19688A"
-                        android:text="Are You Sure Want To Delete This Details?"
+                        android:text="Are You Sure To Delete This Details?"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
